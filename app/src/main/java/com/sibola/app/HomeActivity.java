@@ -3,24 +3,13 @@ package com.sibola.app;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 
 import java.text.SimpleDateFormat;
-
-import android.icu.util.Calendar;
-import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +17,11 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.Date;
 import java.util.Locale;
@@ -109,13 +92,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
                 if (dateClicked.toString().compareTo("Fri 21 Apr 07:00:00 GMT 2017") == 0) {
-                    Intent intent = new Intent(HomeActivity.this, SlotActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
                     startActivity(intent);
 
                     Toast.makeText(context, "Hari Kartini", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Intent intent = new Intent(HomeActivity.this, SlotActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
                     startActivity(intent);
 
 
@@ -126,7 +109,8 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
+
+               actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
             }
         });
 
