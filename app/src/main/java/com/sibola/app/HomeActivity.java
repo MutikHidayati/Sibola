@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
 import java.text.SimpleDateFormat;
+
 import android.icu.util.Calendar;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
@@ -42,10 +43,10 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.Date;
 import java.util.Locale;
 
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity {
 
     CompactCalendarView compactCalendar;
-    private java.text.SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM - yyyy",Locale.getDefault());
+    private java.text.SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -67,18 +68,16 @@ public class HomeActivity extends AppCompatActivity{
             loadSignInView();
         }
 
-
-
         mUserId = mFirebaseUser.getUid();
-        mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener(){
+        mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 mUser = dataSnapshot.getValue(User.class);
                 TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
-                TextView depositText = (TextView) findViewById(R.id.depositText) ;
-                haiUsernameText.setText("Hai "+ mUser.getUsername()+ "!\ndeposit kamu sebanyak:");
+                TextView depositText = (TextView) findViewById(R.id.depositText);
+                haiUsernameText.setText("Hai " + mUser.getUsername() + "!\ndeposit kamu sebanyak:");
                 depositText.setText("Rp " + mUser.getDeposit());
 
                 // ...
@@ -95,7 +94,7 @@ public class HomeActivity extends AppCompatActivity{
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(null);
+        //actionBar.setTitle(null);
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
 
