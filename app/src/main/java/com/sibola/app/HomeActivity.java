@@ -60,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                 mUser = dataSnapshot.getValue(User.class);
                 TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
                 TextView depositText = (TextView) findViewById(R.id.depositText);
-                haiUsernameText.setText("Hai " + mUser.getUsername() + "!\ndeposit kamu sebanyak:");
+                haiUsernameText.setText("Hai " + mUser.getUsername() + "! Deposit kamu sebanyak:");
                 depositText.setText("Rp " + mUser.getDeposit());
 
                 // ...

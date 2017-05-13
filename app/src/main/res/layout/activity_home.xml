@@ -1,83 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    android:background="@color/white">
 
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_info_outline_black"
-                android:drawablePadding="15dp"
-                android:paddingTop="20dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/status"
-                android:textSize="12sp" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_info_outline_black"
+        android:drawablePadding="15dp"
+        android:text="@string/status"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
 
-            <com.github.sundeepk.compactcalendarview.CompactCalendarView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/compactcalendar_view"
-                    android:layout_width="fill_parent"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_height="250dp"
-                    app:compactCalendarTargetHeight="250dp"
-                    app:compactCalendarTextSize="12sp"
-                    app:compactCalendarBackgroundColor="@color/icons"
-                    app:compactCalendarTextColor="@color/primary_dark"
-                    app:compactCalendarCurrentSelectedDayBackgroundColor="@color/accent"
-                    app:compactCalendarCurrentDayBackgroundColor="@color/accent"
-                    app:compactCalendarMultiEventIndicatorColor="#fff"
-                    />
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="17dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:compactCalendarBackgroundColor="@color/icons"
+        app:compactCalendarCurrentDayBackgroundColor="@color/accent"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/accent"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextColor="@color/primary_dark"
+        app:compactCalendarTextSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_conversion_absoluteHeight="250dp"
+        tools:layout_conversion_absoluteWidth="320dp"
+        tools:layout_conversion_absoluteX="20dp"
+        tools:layout_conversion_absoluteY="96dp"
+        tools:layout_editor_absoluteX="0dp" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:paddingBottom="0dp"
-                android:weightSum="2">
+    <TextView
+        android:id="@+id/hai_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        android:text="@string/hai"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/compactcalendar_view"
+        tools:layout_conversion_absoluteHeight="41dp"
+        tools:layout_conversion_absoluteWidth="160dp"
+        tools:layout_conversion_absoluteX="20dp"
+        tools:layout_conversion_absoluteY="379dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/depositText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="4dp"
+        android:text="@string/deposit"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/hai_username"
+        tools:layout_conversion_absoluteHeight="36dp"
+        tools:layout_conversion_absoluteWidth="160dp"
+        tools:layout_conversion_absoluteX="180dp"
+        tools:layout_conversion_absoluteY="380dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
 
 
-                <TextView
-                    android:id="@+id/hai_username"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="4dp"
-                    android:text="@string/hai"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/primary_text"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/depositText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:padding="4dp"
-                    android:text="@string/deposit"
-                    android:textAlignment="center"
-                    android:textColor="@color/primary_text"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
