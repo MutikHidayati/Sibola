@@ -16,6 +16,8 @@ public class User {
         this.username = username;
         this.email = email;
         this.userId = userId;
+        this.deposit = 0;
+        this.member = false;
     }
 
     public User() {

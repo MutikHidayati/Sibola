@@ -49,70 +49,72 @@ public class HomeActivity extends AppCompatActivity {
         if (mFirebaseUser == null) {
             // Not logged in, launch the Log In activity
             loadSignInView();
-        }
+        } else {
 
-        mUserId = mFirebaseUser.getUid();
-        mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
+            mUserId = mFirebaseUser.getUid();
+            mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                mUser = dataSnapshot.getValue(User.class);
-                TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
-                TextView depositText = (TextView) findViewById(R.id.depositText);
-                haiUsernameText.setText("Hai " + mUser.getUsername() + "! Deposit kamu sebanyak:");
-                depositText.setText("Rp " + mUser.getDeposit());
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Get Post object and use the values to update the UI
+                    mUser = dataSnapshot.getValue(User.class);
+                    TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
+                    TextView depositText = (TextView) findViewById(R.id.depositText);
+                    haiUsernameText.setText("Hai " + mUser.getUsername() + "! Deposit kamu sebanyak:");
+                    depositText.setText("Rp " + mUser.getDeposit());
 
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
-                haiUsernameText.setText("The read failed: " + databaseError.getCode());
-                // ...
-            }
-        });
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        //actionBar.setTitle(null);
-        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        compactCalendar.setUseThreeLetterAbbreviation(true);
-
-        //add event
-        Event ev1 = new Event(Color.RED, 1492732800000L, "Hari Kartini");
-        compactCalendar.addEvent(ev1);
-
-        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
-            @Override
-            public void onDayClick(Date dateClicked) {
-                Context context = getApplicationContext();
-
-
-                if (dateClicked.toString().compareTo("Fri 21 Apr 07:00:00 GMT 2017") == 0) {
-                    Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
-                    startActivity(intent);
-
-                    Toast.makeText(context, "Hari Kartini", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
-                    startActivity(intent);
-
-
-                    Toast.makeText(context, "No Event", Toast.LENGTH_SHORT).show();
-
+                    // ...
                 }
-            }
 
-            @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Getting Post failed, log a message
+                    TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
+                    haiUsernameText.setText("The read failed: " + databaseError.getCode());
+                    // ...
+                }
+            });
 
-               actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
-            }
-        });
+            final ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            //actionBar.setTitle(null);
+            compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+            compactCalendar.setUseThreeLetterAbbreviation(true);
+
+            //add event
+            Event ev1 = new Event(Color.RED, 1492732800000L, "Hari Kartini");
+            compactCalendar.addEvent(ev1);
+
+            compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+                @Override
+                public void onDayClick(Date dateClicked) {
+                    Context context = getApplicationContext();
+
+
+                    if (dateClicked.toString().compareTo("Fri 21 Apr 07:00:00 GMT 2017") == 0) {
+                        Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
+                        startActivity(intent);
+
+                        Toast.makeText(context, "Hari Kartini", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
+                        startActivity(intent);
+
+
+                        Toast.makeText(context, "No Event", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onMonthScroll(Date firstDayOfNewMonth) {
+
+                    actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
+                }
+            });
+
+        }
 
     }
 
