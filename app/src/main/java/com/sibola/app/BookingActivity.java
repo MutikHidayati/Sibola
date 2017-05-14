@@ -1,9 +1,15 @@
 package com.sibola.app;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -16,6 +22,7 @@ public class BookingActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> dataSet;
+    //private Button bookingAlert;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +45,48 @@ public class BookingActivity extends AppCompatActivity {
         adapter = new RecyclerViewAdapter(dataSet);
         rvView.setAdapter(adapter);
 
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle(null);
+        /*
+        bookingAlert = (Button) findViewById(R.id.bt_booking);
+        bookingAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        }); */
+
     }
+    /*
+    private void showDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        //set title dialog
+        alertDialogBuilder.setTitle("Konfirmasi Booking");
+
+        //set pesan dari dialog
+        alertDialogBuilder
+                .setMessage("Klik YA untuk booking!")
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false)
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id){
+                        BookingActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+
+        //membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        //menampilkan alert dialog
+        alertDialog.show();
+    } */
 
     private void initDataset(){
 

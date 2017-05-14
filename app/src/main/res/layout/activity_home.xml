@@ -7,14 +7,13 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_info_outline_black"
@@ -26,30 +25,8 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
-
-
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/compactcalendar_view"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="17dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:compactCalendarBackgroundColor="@color/icons"
-        app:compactCalendarCurrentDayBackgroundColor="@color/accent"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/accent"
-        app:compactCalendarMultiEventIndicatorColor="#fff"
-        app:compactCalendarTargetHeight="250dp"
-        app:compactCalendarTextColor="@color/primary_dark"
-        app:compactCalendarTextSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_conversion_absoluteHeight="250dp"
-        tools:layout_conversion_absoluteWidth="320dp"
-        tools:layout_conversion_absoluteX="20dp"
-        tools:layout_conversion_absoluteY="96dp"
-        tools:layout_editor_absoluteX="0dp" />
-
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/hai_username"
@@ -61,7 +38,7 @@
         android:textAlignment="center"
         android:textColor="@color/primary_text"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/compactcalendar_view"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_view"
         tools:layout_conversion_absoluteHeight="41dp"
         tools:layout_conversion_absoluteWidth="160dp"
         tools:layout_conversion_absoluteX="20dp"
@@ -70,7 +47,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/depositText"
@@ -91,7 +70,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
+    <com.stacktips.view.CustomCalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:calendarBackgroundColor="@color/white"
+        app:calendarTitleTextColor="@color/primary_text"
+        app:currentDayOfMonthColor="@color/primary"
+        app:dayOfMonthTextColor="@color/black"
+        app:dayOfWeekTextColor="@color/black"
+        app:disabledDayBackgroundColor="@color/white"
+        app:disabledDayTextColor="@color/secondary_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:selectedDayBackgroundColor="@color/accent"
+        app:titleLayoutBackgroundColor="@color/white"
+        app:weekLayoutBackgroundColor="@color/white"></com.stacktips.view.CustomCalendarView>
 
 </android.support.constraint.ConstraintLayout>

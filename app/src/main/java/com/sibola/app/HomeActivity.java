@@ -3,7 +3,6 @@ package com.sibola.app;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-
 import java.text.SimpleDateFormat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,20 +18,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.stacktips.view.CalendarListener;
+import com.stacktips.view.CustomCalendarView;
+import com.stacktips.view.DayDecorator;
+import com.stacktips.view.DayView;
+import com.stacktips.view.utils.CalendarUtils;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
-
-    CompactCalendarView compactCalendar;
-    private java.text.SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase;
     private String mUserId;
     private User mUser;
+    private CustomCalendarView calendarView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,47 +76,52 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
 
-            final ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            //actionBar.setTitle(null);
-            compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-            compactCalendar.setUseThreeLetterAbbreviation(true);
+            //Initialize CustomCalendarView from layout
 
-            //add event
-            Event ev1 = new Event(Color.RED, 1492732800000L, "Hari Kartini");
-            compactCalendar.addEvent(ev1);
+            calendarView = (CustomCalendarView) findViewById(R.id.calendar_view);
 
-            compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            //Initialize calendar with date
+            Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());
+
+            //Show Monday as first date of week
+            calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
+            //Show/hide overflow days of a month
+            calendarView.setShowOverflowDate(false);
+
+            //call refreshCalendar to update calendar the view
+            calendarView.refreshCalendar(currentCalendar);
+
+            calendarView.setCalendarListener(new CalendarListener() {
                 @Override
-                public void onDayClick(Date dateClicked) {
-                    Context context = getApplicationContext();
+                public void onDateSelected(Date date) {
+                    if (!CalendarUtils.isPastDay(date)) {
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyy");
+                        Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                        //selectedDateTv.setText(df.format(date));
 
-
-                    if (dateClicked.toString().compareTo("Fri 21 Apr 07:00:00 GMT 2017") == 0) {
                         Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
                         startActivity(intent);
-
-                        Toast.makeText(context, "Hari Kartini", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
-                        startActivity(intent);
-
-
-                        Toast.makeText(context, "No Event", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(HomeActivity.this, "Pilih Hari Lain", Toast.LENGTH_LONG).show();
 
                     }
+
                 }
 
                 @Override
-                public void onMonthScroll(Date firstDayOfNewMonth) {
-
-                    actionBar.setTitle(dateFormatMonth.format(firstDayOfNewMonth));
+                public void onMonthChanged(Date date) {
+                    SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
+                    Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 }
             });
 
+            //adding calendar day decorators
+            List<DayDecorator> decorators = new ArrayList<>();
+            decorators.add(new DisabledColorDecorator());
+            calendarView.setDecorators(decorators);
+            calendarView.refreshCalendar(currentCalendar);
         }
-
     }
 
     private void loadSignInView() {
@@ -146,5 +152,14 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class DisabledColorDecorator implements DayDecorator {
+        public void decorate(DayView dayView) {
+            if (CalendarUtils.isPastDay(dayView.getDate())) {
+                int color = Color.parseColor("#a9afb9");
+                dayView.setTextColor(color);
+            }
+        }
     }
 }
