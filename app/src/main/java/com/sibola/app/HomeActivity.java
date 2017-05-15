@@ -77,7 +77,6 @@ public class HomeActivity extends AppCompatActivity {
             });
 
             //Initialize CustomCalendarView from layout
-
             calendarView = (CustomCalendarView) findViewById(R.id.calendar_view);
 
             //Initialize calendar with date
@@ -96,23 +95,23 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     if (!CalendarUtils.isPastDay(date)) {
-                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyy");
+                        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyy");
                         Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                         //selectedDateTv.setText(df.format(date));
-
+                        String selectedDate = df.format(date);
                         Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
+                        intent.putExtra("thisDate", selectedDate);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(HomeActivity.this, "Pilih Hari Lain", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(HomeActivity.this, "Silahkan pilih hari lain", Toast.LENGTH_LONG).show();
                     }
 
                 }
 
                 @Override
                 public void onMonthChanged(Date date) {
-                    SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
-                    Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                    SimpleDateFormat df = new SimpleDateFormat("MMM-yyyy");
+                    //Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 }
             });
 

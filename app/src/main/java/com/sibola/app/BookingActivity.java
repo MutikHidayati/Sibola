@@ -22,6 +22,7 @@ public class BookingActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<String> dataSet;
+    private String thisDate = null;
     //private Button bookingAlert;
 
     @Override
@@ -30,6 +31,12 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
         dataSet = new ArrayList<>();
         initDataset();
+
+        //add to activity you want to pull variables from
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            thisDate = extras.getString("thisDate");
+        }
 
         rvView = (RecyclerView) findViewById(R.id.rv_main);
         rvView.setHasFixedSize(true);
@@ -47,7 +54,7 @@ public class BookingActivity extends AppCompatActivity {
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(null);
+        actionBar.setTitle(thisDate);
         /*
         bookingAlert = (Button) findViewById(R.id.bt_booking);
         bookingAlert.setOnClickListener(new View.OnClickListener() {
