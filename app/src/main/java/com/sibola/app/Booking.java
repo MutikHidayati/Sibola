@@ -9,11 +9,19 @@ import java.util.Date;
 public class Booking {
     private String tanggal;
     private String slotJam;
+    private String username;
     private boolean lunas;
 
     public Booking(String tanggal, String slotJam) {
         this.tanggal = tanggal;
         this.slotJam = slotJam;
+        this.lunas = false;
+    }
+
+    public Booking(String tanggal, String slotJam, String username) {
+        this.tanggal = tanggal;
+        this.slotJam = slotJam;
+        this.username = username;
         this.lunas = false;
     }
 
@@ -34,6 +42,14 @@ public class Booking {
 
     public void setSlotJam(String slotJam) {
         this.slotJam = slotJam;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public boolean isLunas() {

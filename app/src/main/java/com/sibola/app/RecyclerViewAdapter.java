@@ -4,10 +4,12 @@ package com.sibola.app;
  * Created by Mutik on 12/05/2017.
  */
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,11 +28,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //menggunakan data String untuk tiap item
         public TextView jam;
         public TextView status;
+        public Button bookingButton;
 
         public ViewHolder(View v) {
             super(v);
             jam = (TextView) v.findViewById(R.id.jam);
             status = (TextView) v.findViewById(R.id.status);
+            bookingButton = (Button) v.findViewById(R.id.bt_booking);
         }
     }
 
