@@ -1,6 +1,5 @@
 package com.sibola.app;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,20 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by Aizen on 10 Mei 2017.
@@ -59,29 +56,17 @@ public class BookingActivity extends AppCompatActivity {
 
         // Initialize Firebase Reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("bookings").child(thisDate).addChildEventListener(new ChildEventListener() {
+        mDatabase.child("bookings").child(thisDate).addValueEventListener(new ValueEventListener() {
             public static final String TAG = "LIST_ADDED_FIREBASE";
 
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Booking b = dataSnapshot.getValue(Booking.class);
-                bookingListFromFirebase.add(b);
-                Log.i(TAG,"add booking hour = " + b.getSlotJam());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot bookingSnapshot : dataSnapshot.getChildren()){
+                    Booking b = bookingSnapshot.getValue(Booking.class);
+                    bookingListFromFirebase.add(b);
+                    Log.i(TAG,"add booking hour = " + b.getSlotJam());
+                }
+                refreshBookingList();
             }
 
             @Override
@@ -93,15 +78,11 @@ public class BookingActivity extends AppCompatActivity {
 
         rView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        mAdapter = new SlotJamAdapter(bookingList, new SlotJamAdapter.MyAdapterListener() {
+        mAdapter = new SlotJamAdapter(this.bookingList, new SlotJamAdapter.MyAdapterListener() {
             @Override
             public void buttonBookingOnClick(View v, int position) {
                 Booking booking = bookingList.get(position);
                 showDialog(booking);
-
-                /*Toast.makeText(getApplicationContext(), booking.getTanggal() + " pukul "
-                        + booking.getSlotJam(), Toast.LENGTH_SHORT).show();*/
-
             }
         });
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -128,17 +109,6 @@ public class BookingActivity extends AppCompatActivity {
         }));*/
 
         initBookingList();
-
-        /*for(Booking bList:bookingList){
-            Log.i(TAG,"booking hour = " + bList.getSlotJam());
-        }
-*/
-
-        for (ListIterator<Booking> i = bookingListFromFirebase.listIterator(); i.hasNext();) {
-            Booking elementA = i.next();
-            Log.i(TAG, "sama hour = " + elementA.getSlotJam() + " " + elementA.getTanggal());
-
-        }
     }
 
     private void showDialog(final Booking b) {
@@ -151,7 +121,7 @@ public class BookingActivity extends AppCompatActivity {
         alertDialogBuilder
                 .setMessage("Anda akan booking lapangan futsal pada " + b.getTanggal()
                         + " pukul " + b.getSlotJam() + "?\n\n"
-                        + "DP Rp 50.000 akan dikurangi dari deposit anda")
+                        + "DP Rp 50.000 akan dikurangi dari deposit anda.")
                 .setIcon(R.mipmap.ic_launcher)
                 .setCancelable(false)
                 .setPositiveButton("YA", new DialogInterface.OnClickListener() {
@@ -239,28 +209,33 @@ public class BookingActivity extends AppCompatActivity {
         booking = new Booking(thisDate, "23:00 - 24:00");
         bookingList.add(booking);
 
-        /*for (final ListIterator<String> i = list.listIterator(); i.hasNext();) {
-            final String element = i.next();
-            i.set(element + "yaddayadda");
+        for(Booking bData : bookingList) {
+            //Booking bData = bList;
+            Log.i(TAG, "booking hour = " + bData.getSlotJam() + " | " + bData.getTanggal());
+        }
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void refreshBookingList(){
+
+        /*for(Booking bData : bookingListFromFirebase) {
+            //Booking bData = bList;
+            Log.i(TAG, "booking hour = " + bData.getSlotJam() + " | " + bData.getTanggal());
         }*/
 
+        for(Booking bDataFireBase : bookingListFromFirebase){
+            int index = 0;
+            for(Booking bData : bookingList){
 
-        /*for (ListIterator<Booking> i = bookingListFromFirebase.listIterator(); i.hasNext();) {
-            Booking elementA = i.next();
-            Log.i(TAG,"sama hour = " + elementA.getSlotJam());
-            for (final ListIterator<Booking> j = bookingList.listIterator(); j.hasNext();) {
-                final Booking elementB = j.next();
-                if (elementB.getSlotJam().equals(elementA.getSlotJam())) {
+                Log.i(TAG,"booking hour = " + bData.getSlotJam() + " | " + bData.getTanggal());
 
-                    j.set(elementA);
-                    Log.i(TAG,"sama booking hour = " + elementB.getSlotJam());
+                if(bData.getSlotJam().equals(bDataFireBase.getSlotJam())){
+                    bookingList.set(index, bDataFireBase);
+                    Log.i(TAG,"ganti di indeks = " + index + " | username = " + bDataFireBase.getUsername());
                 }
+                index++;
             }
-        }*/
-
-
-        for(Booking bList:bookingList){
-            Log.i(TAG,"booking hour = " + bList.getSlotJam() + " " + bList.getTanggal());
         }
 
         mAdapter.notifyDataSetChanged();

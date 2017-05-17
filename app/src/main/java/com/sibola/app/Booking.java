@@ -1,7 +1,5 @@
 package com.sibola.app;
 
-import java.util.Objects;
-
 /**
  * Created by Aizen on 10 Mei 2017.
  */
@@ -58,10 +56,6 @@ public class Booking{
 
     public void setLunas(boolean lunas) {
         this.lunas = lunas;
-    }
-
-    public boolean equals(Booking bookingLain){
-        return this.slotJam.equals(bookingLain.getSlotJam());
     }
 
 }

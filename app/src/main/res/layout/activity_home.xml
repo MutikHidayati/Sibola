@@ -4,98 +4,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--android:background="@color/white">-->
+    android:orientation="vertical"
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="64dp"
         android:drawableLeft="@drawable/ic_info_outline_black"
         android:drawablePadding="15dp"
-        android:text="@string/status"
+        android:gravity="center_vertical"
+        android:text="@string/info_cara_booking"
         android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/hai_username"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:text="@string/hai"
-        android:textAlignment="center"
-        android:textColor="@color/primary_text"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/calendar_view"
-        tools:layout_conversion_absoluteHeight="41dp"
-        tools:layout_conversion_absoluteWidth="160dp"
-        tools:layout_conversion_absoluteX="20dp"
-        tools:layout_conversion_absoluteY="379dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
-
-    <TextView
-        android:id="@+id/depositText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:padding="4dp"
-        android:text="@string/deposit"
-        android:textAlignment="center"
-        android:textColor="@color/primary_text"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/hai_username"
-        tools:layout_conversion_absoluteHeight="36dp"
-        tools:layout_conversion_absoluteWidth="160dp"
-        tools:layout_conversion_absoluteX="180dp"
-        tools:layout_conversion_absoluteY="380dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
-
-    <com.stacktips.view.CustomCalendarView
-        android:id="@+id/calendar_view"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        app:calendarBackgroundColor="@color/white"
-        app:calendarTitleTextColor="@color/primary_text"
-        app:currentDayOfMonthColor="@color/primary_dark"
-        app:dayOfMonthTextColor="@color/primary_text"
-        app:dayOfWeekTextColor="@color/primary_text"
-        app:disabledDayBackgroundColor="@color/white"
-        app:disabledDayTextColor="@color/secondary_text"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:selectedDayBackgroundColor="@color/accent"
-        app:titleLayoutBackgroundColor="@color/white"
-        app:weekLayoutBackgroundColor="@color/white">
-    </com.stacktips.view.CustomCalendarView>
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="16dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.stacktips.view.CustomCalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                app:calendarBackgroundColor="@color/white"
+                app:calendarTitleTextColor="@color/primary_text"
+                app:currentDayOfMonthColor="@color/primary_dark"
+                app:dayOfMonthTextColor="@color/primary_text"
+                app:dayOfWeekTextColor="@color/primary_text"
+                app:disabledDayBackgroundColor="@color/white"
+                app:disabledDayTextColor="@color/secondary_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selectedDayBackgroundColor="@color/accent"
+                app:titleLayoutBackgroundColor="@color/white"
+                app:weekLayoutBackgroundColor="@color/white">
+
+            </com.stacktips.view.CustomCalendarView>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/hai_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:text="@string/hai"
+                android:textAlignment="center"
+                android:textColor="@color/primary_text"
+                android:textSize="16sp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="41dp"
+                tools:layout_conversion_absoluteWidth="160dp"
+                tools:layout_conversion_absoluteX="20dp"
+                tools:layout_conversion_absoluteY="379dp" />
+
+            <TextView
+                android:id="@+id/depositText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:padding="4dp"
+                android:text="@string/deposit"
+                android:textAlignment="center"
+                android:textColor="@color/primary_text"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hai_username"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_conversion_absoluteHeight="36dp"
+                tools:layout_conversion_absoluteWidth="160dp"
+                tools:layout_conversion_absoluteX="180dp"
+                tools:layout_conversion_absoluteY="380dp" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

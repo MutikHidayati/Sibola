@@ -1,6 +1,6 @@
 package com.sibola.app;
 
-import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,21 +43,11 @@ public class SlotJamAdapter extends RecyclerView.Adapter<SlotJamAdapter.MyViewHo
             });
 
         }
-
-        /*@Override
-        public void onClick(View view) {
-            if (view.getId() == buttonBooking.getId()){
-                Toast.makeText(view.getContext(), "BUTTON PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(view.getContext(), "ROW PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-            }
-        }*/
     }
 
     public SlotJamAdapter (List<Booking> bookingList,  MyAdapterListener listener){
         this.bookingList = bookingList;
         this.onClickListener = listener;
-        //this.mActivity = mActivity;
     }
 
     @Override
@@ -74,8 +64,14 @@ public class SlotJamAdapter extends RecyclerView.Adapter<SlotJamAdapter.MyViewHo
         holder.slotJam.setText(booking.getSlotJam());
         if(booking.getUsername() == null){
             holder.status.setText("Belum dibooking");
+            holder.status.setTextColor(Color.parseColor("#757575"));
+            holder.buttonBooking.setAlpha(1f);
+            holder.buttonBooking.setEnabled(true);
         } else {
             holder.status.setText("Dibooking oleh " + booking.getUsername());
+            holder.status.setTextColor(Color.parseColor("#689F38"));
+            holder.buttonBooking.setAlpha(.3f);
+            holder.buttonBooking.setEnabled(false);
         }
 
     }

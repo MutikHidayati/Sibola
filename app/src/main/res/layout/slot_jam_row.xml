@@ -45,7 +45,7 @@
         android:layout_height="fill_parent"
         android:layout_marginLeft="6dip"
         android:text="@string/booking"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_text"
         android:textSize="12sp"
         android:backgroundTint="@color/accent"
         android:layout_alignParentTop="true"
