@@ -31,7 +31,7 @@ import java.util.ListIterator;
 
 public class BookingActivity extends AppCompatActivity {
 
-    private static final String TAG = "";
+    private static final String TAG = "BOOKING_LIST";
     private DatabaseReference mDatabase;
 
     private List<Booking> bookingList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class BookingActivity extends AppCompatActivity {
         // Initialize Firebase Reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("bookings").child(thisDate).addChildEventListener(new ChildEventListener() {
-            public static final String TAG = "Error";
+            public static final String TAG = "LIST_ADDED_FIREBASE";
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -129,6 +129,16 @@ public class BookingActivity extends AppCompatActivity {
 
         initBookingList();
 
+        /*for(Booking bList:bookingList){
+            Log.i(TAG,"booking hour = " + bList.getSlotJam());
+        }
+*/
+
+        for (ListIterator<Booking> i = bookingListFromFirebase.listIterator(); i.hasNext();) {
+            Booking elementA = i.next();
+            Log.i(TAG, "sama hour = " + elementA.getSlotJam() + " " + elementA.getTanggal());
+
+        }
     }
 
     private void showDialog(final Booking b) {
@@ -234,19 +244,24 @@ public class BookingActivity extends AppCompatActivity {
             i.set(element + "yaddayadda");
         }*/
 
-            /*for (final ListIterator<Booking> i = bookingListFromFirebase.listIterator(); i.hasNext();) {
-                final Booking elementA = i.next();
-                Log.i(TAG,"sama hour = " + elementA.getSlotJam());
-                for (final ListIterator<Booking> j = bookingList.listIterator(); j.hasNext();) {
-                    final Booking elementB = j.next();
-                    if (elementB.getSlotJam().equals(elementA.getSlotJam())) {
 
-                        j.set(elementA);
-                        Log.i(TAG,"sama booking hour = " + elementB.getSlotJam());
-                    }
+        /*for (ListIterator<Booking> i = bookingListFromFirebase.listIterator(); i.hasNext();) {
+            Booking elementA = i.next();
+            Log.i(TAG,"sama hour = " + elementA.getSlotJam());
+            for (final ListIterator<Booking> j = bookingList.listIterator(); j.hasNext();) {
+                final Booking elementB = j.next();
+                if (elementB.getSlotJam().equals(elementA.getSlotJam())) {
+
+                    j.set(elementA);
+                    Log.i(TAG,"sama booking hour = " + elementB.getSlotJam());
                 }
-            }*/
+            }
+        }*/
 
+
+        for(Booking bList:bookingList){
+            Log.i(TAG,"booking hour = " + bList.getSlotJam() + " " + bList.getTanggal());
+        }
 
         mAdapter.notifyDataSetChanged();
     }
