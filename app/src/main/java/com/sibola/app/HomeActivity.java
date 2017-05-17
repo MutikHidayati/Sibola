@@ -1,16 +1,15 @@
 package com.sibola.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import java.text.SimpleDateFormat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,11 +17,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import com.stacktips.view.CalendarListener;
 import com.stacktips.view.CustomCalendarView;
 import com.stacktips.view.DayDecorator;
 import com.stacktips.view.DayView;
 import com.stacktips.view.utils.CalendarUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,12 +96,14 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     if (!CalendarUtils.isPastDay(date)) {
-                        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyy");
+                        SimpleDateFormat df = new SimpleDateFormat("EEEE, dd MMM");
                         Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                         //selectedDateTv.setText(df.format(date));
+                        df = new SimpleDateFormat("dd MMMM yyy");
                         String selectedDate = df.format(date);
                         Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
                         intent.putExtra("thisDate", selectedDate);
+                        intent.putExtra("user", mUser);
                         startActivity(intent);
                     }else{
                         Toast.makeText(HomeActivity.this, "Silahkan pilih hari lain", Toast.LENGTH_LONG).show();
@@ -110,7 +113,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 @Override
                 public void onMonthChanged(Date date) {
-                    SimpleDateFormat df = new SimpleDateFormat("MMM-yyyy");
+                    //SimpleDateFormat df = new SimpleDateFormat("MMM-yyyy");
                     //Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 }
             });

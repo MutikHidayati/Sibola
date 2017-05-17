@@ -1,10 +1,12 @@
 package com.sibola.app;
 
+import java.io.Serializable;
+
 /**
  * Created by Aizen on 3 Mei 2017.
  */
 
-public class User {
+public class User implements Serializable{
 
     private String username;
     private String email;

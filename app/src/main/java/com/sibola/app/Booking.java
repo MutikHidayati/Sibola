@@ -1,12 +1,12 @@
 package com.sibola.app;
 
-import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Aizen on 10 Mei 2017.
  */
 
-public class Booking {
+public class Booking{
     private String tanggal;
     private String slotJam;
     private String username;
@@ -59,4 +59,9 @@ public class Booking {
     public void setLunas(boolean lunas) {
         this.lunas = lunas;
     }
+
+    public boolean equals(Booking bookingLain){
+        return this.slotJam.equals(bookingLain.getSlotJam());
+    }
+
 }
