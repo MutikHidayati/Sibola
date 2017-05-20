@@ -85,7 +85,6 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-
     public void goToActivitySignUp (View view){
         startActivity(new Intent (this, SignUpActivity.class));
 

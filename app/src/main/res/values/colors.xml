@@ -10,5 +10,6 @@
     <color name="divider">#ECEFF1</color>
     <color name="white">#fff</color>
     <color name="gray">#ECEFF1</color>
+    <color name="background">#8BC34A</color>
 
 </resources>

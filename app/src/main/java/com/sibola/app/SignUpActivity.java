@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -91,6 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         User user = new User(username, email, userId);
         mDatabase.child("users").child(userId).setValue(user);
+        Toast.makeText(this, R.string.signup_success, Toast.LENGTH_SHORT).show();
     }
 
 }

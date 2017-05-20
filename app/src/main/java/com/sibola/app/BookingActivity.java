@@ -51,7 +51,8 @@ public class BookingActivity extends AppCompatActivity {
         }
 
         final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_action_calendar);
         actionBar.setTitle(thisDate);
 
         // Initialize Firebase Reference

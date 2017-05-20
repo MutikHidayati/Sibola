@@ -1,12 +1,21 @@
 package com.sibola.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +47,12 @@ public class HomeActivity extends AppCompatActivity {
     private String mUserId;
     private User mUser;
     private CustomCalendarView calendarView;
+    Locale locale = new Locale("in");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Locale.setDefault(locale);
 
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -53,6 +64,8 @@ public class HomeActivity extends AppCompatActivity {
             loadSignInView();
         } else {
 
+            Toast.makeText(HomeActivity.this, "Selamat datang di aplikasi SIBOLA", Toast.LENGTH_SHORT).show();
+
             mUserId = mFirebaseUser.getUid();
             mDatabase.child("users").child(mUserId).addValueEventListener(new ValueEventListener() {
 
@@ -62,8 +75,9 @@ public class HomeActivity extends AppCompatActivity {
                     mUser = dataSnapshot.getValue(User.class);
                     TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
                     TextView depositText = (TextView) findViewById(R.id.depositText);
+                    String deposit = NumberFormat.getNumberInstance(locale).format(mUser.getDeposit());
                     haiUsernameText.setText("Hai " + mUser.getUsername() + "! Deposit kamu sebanyak:");
-                    depositText.setText("Rp " + mUser.getDeposit());
+                    depositText.setText("Rp " + deposit);
 
                     // ...
                 }
@@ -72,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
                     // Getting Post failed, log a message
                     TextView haiUsernameText = (TextView) findViewById(R.id.hai_username);
-                    haiUsernameText.setText("The read failed: " + databaseError.getCode());
+                    haiUsernameText.setText("Gagal membaca database: " + databaseError.getCode());
                     // ...
                 }
             });
@@ -81,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
             calendarView = (CustomCalendarView) findViewById(R.id.calendar_view);
 
             //Initialize calendar with date
-            Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());
+            Calendar currentCalendar = Calendar.getInstance(locale);
 
             //Show Monday as first date of week
             calendarView.setFirstDayOfWeek(Calendar.MONDAY);
@@ -96,17 +110,17 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onDateSelected(Date date) {
                     if (!CalendarUtils.isPastDay(date)) {
-                        SimpleDateFormat df = new SimpleDateFormat("EEEE, dd MMM");
-                        Toast.makeText(HomeActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM", locale);
+                        Toast.makeText(HomeActivity.this, sdf.format(date), Toast.LENGTH_SHORT).show();
                         //selectedDateTv.setText(df.format(date));
-                        df = new SimpleDateFormat("dd MMMM yyy");
-                        String selectedDate = df.format(date);
+                        sdf = new SimpleDateFormat("dd MMMM yyy", locale);
+                        String selectedDate = sdf.format(date);
                         Intent intent = new Intent(HomeActivity.this, BookingActivity.class);
                         intent.putExtra("thisDate", selectedDate);
                         intent.putExtra("user", mUser);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(HomeActivity.this, "Silahkan pilih hari lain", Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, "Silahkan pilih hari lain", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -123,7 +137,45 @@ public class HomeActivity extends AppCompatActivity {
             decorators.add(new DisabledColorDecorator());
             calendarView.setDecorators(decorators);
             calendarView.refreshCalendar(currentCalendar);
+
+            //touchable blank space in calendar card view
+            /*CardView calendarCardView = (CardView) findViewById(R.id.cardView1);
+            calendarCardView.setClickable(true);*/
+
+            //touchable deposit card view
+            CardView depositCardView = (CardView) findViewById(R.id.cardView2);
+            depositCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDepositDialog();
+                }
+            });
         }
+    }
+
+    private void showDepositDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        //set title dialog
+        alertDialogBuilder.setTitle("Deposit");
+
+        //set pesan dari dialog
+        alertDialogBuilder
+                .setMessage("Untuk dapat melakukan booking jadwal lapangan, anda harus memiliki deposit. " +
+                        "Hubungi admin SIBOLA untuk menambah deposit anda.")
+                .setIcon(R.mipmap.ic_launcher)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.dismiss();
+                    }
+                });
+
+        //membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        //menampilkan alert dialog
+        alertDialog.show();
     }
 
     private void loadSignInView() {
@@ -133,7 +185,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
@@ -150,10 +202,30 @@ public class HomeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_signout) {
             mFirebaseAuth.signOut();
+            Toast.makeText(this, "Anda telah keluar akun", Toast.LENGTH_LONG).show();
             loadSignInView();
         }
 
         return super.onOptionsItemSelected(item);
+    }*/
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.action_signout) {
+                    mFirebaseAuth.signOut();
+                    Toast.makeText(HomeActivity.this, "Anda telah keluar akun", Toast.LENGTH_LONG).show();
+                    loadSignInView();
+                    return true;
+                }
+                return false;
+            }
+        });
+        popup.inflate(R.menu.menu_home);
+        popup.show();
     }
 
     private class DisabledColorDecorator implements DayDecorator {
