@@ -8,6 +8,7 @@ public class Booking{
     private String tanggal;
     private String slotJam;
     private String username;
+    private String userId;
     private boolean lunas;
 
     public Booking(String tanggal, String slotJam) {
@@ -16,10 +17,11 @@ public class Booking{
         this.lunas = false;
     }
 
-    public Booking(String tanggal, String slotJam, String username) {
+    public Booking(String tanggal, String slotJam, String username, String userId) {
         this.tanggal = tanggal;
         this.slotJam = slotJam;
         this.username = username;
+        this.userId = userId;
         this.lunas = false;
     }
 
@@ -48,6 +50,14 @@ public class Booking{
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public boolean isLunas() {

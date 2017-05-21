@@ -148,6 +148,7 @@ public class BookingActivity extends AppCompatActivity {
 
         long deposit = user.getDeposit();
         b.setUsername(user.getUsername());
+        b.setUserId(user.getUserId());
 
         if(deposit < 50000){
             Toast.makeText(getApplicationContext(), "Deposit tidak mencukupi!", Toast.LENGTH_SHORT).show();

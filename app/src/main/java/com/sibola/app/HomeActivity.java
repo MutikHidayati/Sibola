@@ -220,6 +220,11 @@ public class HomeActivity extends AppCompatActivity {
                     Toast.makeText(HomeActivity.this, "Anda telah keluar akun", Toast.LENGTH_LONG).show();
                     loadSignInView();
                     return true;
+                } else if (id == R.id.action_view_schedule){
+                    Intent intent = new Intent(HomeActivity.this, ViewScheduleActivity.class);
+                    intent.putExtra("user", mUser);
+                    startActivity(intent);
+                    return true;
                 }
                 return false;
             }

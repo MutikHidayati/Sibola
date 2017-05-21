@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class SlotJamAdapter extends RecyclerView.Adapter<SlotJamAdapter.MyViewHo
             super(view);
             slotJam = (TextView) view.findViewById(R.id.textJam);
             status = (TextView) view.findViewById(R.id.textStatus);
-            buttonBooking = (Button) view.findViewById(R.id.buttonBooking);
+            buttonBooking = (Button) view.findViewById(R.id.buttonBatal);
 
             buttonBooking.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,7 +69,7 @@ public class SlotJamAdapter extends RecyclerView.Adapter<SlotJamAdapter.MyViewHo
         } else {
             holder.status.setText("Dibooking oleh " + booking.getUsername());
             holder.status.setTextColor(Color.parseColor("#689F38"));
-            holder.buttonBooking.setAlpha(.3f);
+            holder.buttonBooking.setAlpha(.25f);
             holder.buttonBooking.setEnabled(false);
         }
 
