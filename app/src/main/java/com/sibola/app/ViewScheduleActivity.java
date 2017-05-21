@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -66,7 +67,6 @@ public class ViewScheduleActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.i("DB_ERROR", "The read failed: " + databaseError.getMessage());
-                System.out.println("The read failed: " + databaseError.getMessage());
             }
         });
 
@@ -86,35 +86,41 @@ public class ViewScheduleActivity extends AppCompatActivity {
 
     public void collectMyBooking(DataSnapshot bookingData) throws ParseException {
 
-        Date todayDate = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyy", Locale.getDefault());
-        String todayDateString = sdf.format(todayDate);
+        Calendar c = Calendar.getInstance();
 
+        // set the calendar to start of today
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        // and get that as a Date
+        Date todayDate = c.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyy", Locale.getDefault());
+
+        /*String todayDateString = sdf.format(todayDate);
         Log.d("LOCALE", Locale.getDefault().getDisplayLanguage());
-        Log.d("TODAY_DATE", todayDateString);
+        Log.d("TODAY_DATE", todayDateString);*/
 
         for (DataSnapshot tanggal : bookingData.getChildren()) {
 
             Log.d("BOOKING_DATE", tanggal.getKey());
             Date date = sdf.parse(tanggal.getKey());
-            //Log.d("BOOKING_DATE_2", sdf.format(date));
 
-            if (tanggal.getKey().equals(todayDateString) || date.after(todayDate)) {
+            if (!date.before(todayDate)) {
                 for (DataSnapshot jam : tanggal.getChildren()) {
                     Log.d("USER_ID", jam.child("userId").getValue().toString());
                     if (user.getUserId().equals(jam.child("userId").getValue().toString())) {
                         Booking b = jam.getValue(Booking.class);
                         myBookings.add(b);
                     }
-                    /*Booking b = jam.getValue(Booking.class);
-                    if(b.getUserId().equals(user.getUserId())){
-                        myBookings.add(b);
-                    }*/
-
                 }
 
             }
         }
+
+        mAdapter.notifyDataSetChanged();
     }
 
 }

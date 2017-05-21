@@ -32,7 +32,7 @@ public class SlotJamAdapter extends RecyclerView.Adapter<SlotJamAdapter.MyViewHo
             super(view);
             slotJam = (TextView) view.findViewById(R.id.textJam);
             status = (TextView) view.findViewById(R.id.textStatus);
-            buttonBooking = (Button) view.findViewById(R.id.buttonBatal);
+            buttonBooking = (Button) view.findViewById(R.id.buttonBooking);
 
             buttonBooking.setOnClickListener(new View.OnClickListener() {
                 @Override

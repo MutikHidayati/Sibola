@@ -19,7 +19,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toLeftOf="@+id/buttonBatal"
+        android:layout_toLeftOf="@+id/buttonBooking"
         android:gravity="center_vertical"
         android:text="Jam"
         android:textColor="@color/primary_text"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toLeftOf="@+id/buttonBatal"
+        android:layout_toLeftOf="@+id/buttonBooking"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Status"
@@ -40,15 +40,15 @@
         android:textSize="12sp" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/buttonBatal"
+        android:id="@+id/buttonBooking"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="6dip"
-        android:text="@string/booking"
-        android:textColor="@color/primary_text"
-        android:textSize="12sp"
-        android:backgroundTint="@color/accent"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="6dip"
+        android:backgroundTint="@color/accent"
+        android:text="@string/booking"
+        android:textColor="@color/primary_dark"
+        android:textSize="12sp" />
 
 </RelativeLayout>

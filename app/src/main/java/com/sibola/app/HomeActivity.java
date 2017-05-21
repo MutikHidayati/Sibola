@@ -7,13 +7,12 @@ import android.graphics.Color;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -134,15 +133,10 @@ public class HomeActivity extends AppCompatActivity {
 
             //adding calendar day decorators
             List<DayDecorator> decorators = new ArrayList<>();
-            decorators.add(new DisabledColorDecorator());
+            decorators.add(new CalendarColorDecorator());
             calendarView.setDecorators(decorators);
             calendarView.refreshCalendar(currentCalendar);
-
-            //touchable blank space in calendar card view
-            /*CardView calendarCardView = (CardView) findViewById(R.id.cardView1);
-            calendarCardView.setClickable(true);*/
-
-            //touchable deposit card view
+                      //touchable deposit card view
             CardView depositCardView = (CardView) findViewById(R.id.cardView2);
             depositCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -233,11 +227,19 @@ public class HomeActivity extends AppCompatActivity {
         popup.show();
     }
 
-    private class DisabledColorDecorator implements DayDecorator {
+    private class CalendarColorDecorator implements DayDecorator {
+
         public void decorate(DayView dayView) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dayView.getDate());
+
             if (CalendarUtils.isPastDay(dayView.getDate())) {
-                int color = Color.parseColor("#a9afb9");
+                int color = Color.parseColor("#CFD8DC");
                 dayView.setTextColor(color);
+            } else if (CalendarUtils.isToday(cal)){
+                int colorBG = Color.parseColor("#bef67a");
+                dayView.setTypeface(null, Typeface.BOLD);
+                dayView.setBackgroundColor(colorBG);
             }
         }
     }

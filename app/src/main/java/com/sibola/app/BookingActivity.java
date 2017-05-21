@@ -211,10 +211,10 @@ public class BookingActivity extends AppCompatActivity {
         booking = new Booking(thisDate, "23:00 - 24:00");
         bookingList.add(booking);
 
-        for(Booking bData : bookingList) {
+        /*for(Booking bData : bookingList) {
             //Booking bData = bList;
             Log.i(TAG, "booking hour = " + bData.getSlotJam() + " | " + bData.getTanggal());
-        }
+        }*/
 
         mAdapter.notifyDataSetChanged();
     }
