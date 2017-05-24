@@ -51,6 +51,8 @@ public class ViewScheduleActivity extends AppCompatActivity {
         actionBar.setIcon(R.drawable.ic_action_calendar);
         actionBar.setTitle("Jadwal Saya");
 
+        mAdapter = new MyBookingAdapter(this.myBookings);
+
         // Initialize Firebase Reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("bookings").addValueEventListener(new ValueEventListener() {
@@ -71,8 +73,6 @@ public class ViewScheduleActivity extends AppCompatActivity {
         });
 
         rView = (RecyclerView) findViewById(R.id.recycleView2);
-
-        mAdapter = new MyBookingAdapter(this.myBookings);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rView.setLayoutManager(mLayoutManager);
         rView.setItemAnimator(new DefaultItemAnimator());

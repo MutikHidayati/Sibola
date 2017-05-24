@@ -8,7 +8,7 @@
     <string name="hai">Hai! Deposit kamu sebanyak:</string>
     <string name="deposit">Rp 0</string>
     <string name="info_cara_booking">Silahkan klik tanggal lalu pilih slot jam untuk <i>booking</i> jadwal lapangan.</string>
-    <string name="action_signout">Keluar Akun</string>
+    <string name="action_signout">Keluar</string>
     <string name="signup_error_message">Email, Username, dan Password wajib diisi.</string>
     <string name="signup_error_title">Terjadi Kesalahan!</string>
     <string name="signup_success">Akun berhasil dibuat, masuk ke aplikasi.</string>
