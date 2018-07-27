@@ -48,7 +48,7 @@
         android:layout_marginLeft="6dip"
         android:backgroundTint="@color/accent"
         android:text="@string/booking"
-        android:textColor="@color/primary_dark"
+        android:textColor="@color/primary_text"
         android:textSize="12sp" />
 
 </RelativeLayout>

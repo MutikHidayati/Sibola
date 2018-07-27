@@ -96,8 +96,9 @@ public class ViewScheduleActivity extends AppCompatActivity {
 
         // and get that as a Date
         Date todayDate = c.getTime();
+        Locale id = new Locale("in", "ID");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyy",id);
 
         /*String todayDateString = sdf.format(todayDate);
         Log.d("LOCALE", Locale.getDefault().getDisplayLanguage());
